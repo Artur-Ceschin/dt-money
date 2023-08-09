@@ -11,21 +11,26 @@ import {
   TransactionTypeButton,
 } from './styles'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useContext } from 'react'
+import { TransactionsContext } from '../../contexts/TransactionsContext'
 
 const newTransactionSchema = z.object({
   description: z.string(),
   price: z.number(),
   category: z.string(),
-  type: z.enum(['income', 'outcome']).optional(),
+  type: z.enum(['income', 'outcome']),
 })
 
 type NewTransactionType = z.infer<typeof newTransactionSchema>
 
 export function NewTransactionModal() {
+  const { createTransaction } = useContext(TransactionsContext)
+
   const {
     control,
     register,
     handleSubmit,
+    reset,
     formState: { isSubmitting },
   } = useForm<NewTransactionType>({
     resolver: zodResolver(newTransactionSchema),
@@ -35,9 +40,9 @@ export function NewTransactionModal() {
   })
 
   async function handleCreateNewTransaction(data: NewTransactionType) {
-    await new Promise((resolve) => setTimeout(resolve, 2000))
-
-    console.log(data)
+    const { category, description, price, type } = data
+    await createTransaction({ category, description, price, type })
+    reset()
   }
 
   return (

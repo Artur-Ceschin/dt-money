@@ -23,6 +23,30 @@
       "category": "Computador",
       "price": 1000,
       "createdAt": "2023-08-05T12:45:10.342Z"
+    },
+    {
+      "category": "Venda",
+      "description": "Desenvolvimento de app",
+      "price": 10000,
+      "type": "income",
+      "createdAt": "2023-08-09T23:13:26.673Z",
+      "id": 4
+    },
+    {
+      "category": "Venda",
+      "description": "Desenvolvimento de app",
+      "price": 10000,
+      "type": "income",
+      "createdAt": "2023-08-09T23:13:29.134Z",
+      "id": 5
+    },
+    {
+      "category": "Alimentação",
+      "description": "Pastel",
+      "price": 10,
+      "type": "outcome",
+      "createdAt": "2023-08-09T23:27:26.420Z",
+      "id": 6
     }
   ]
 }
