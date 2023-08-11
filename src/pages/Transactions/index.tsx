@@ -10,6 +10,7 @@ import {
 } from './styles'
 import { TransactionsContext } from '../../contexts/TransactionsContext'
 import { dateFormatter, priceFormatter } from '../../utils/formatter'
+import { Pagination } from '../../components/Pagination'
 
 export function Transactions() {
   const transactions = useContextSelector(
@@ -42,6 +43,8 @@ export function Transactions() {
           </tbody>
         </TransactionsTable>
       </TransactionsContainer>
+
+      <Pagination />
     </div>
   )
 }

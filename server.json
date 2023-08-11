@@ -47,6 +47,46 @@
       "type": "outcome",
       "createdAt": "2023-08-09T23:27:26.420Z",
       "id": 6
+    },
+    {
+      "category": "Alimentação",
+      "description": "Feijoada",
+      "price": 40,
+      "type": "outcome",
+      "createdAt": "2023-08-10T23:27:26.420Z",
+      "id": 7
+    },
+    {
+      "category": "Roupa",
+      "description": "Roupas",
+      "price": 100,
+      "type": "outcome",
+      "createdAt": "2023-08-10T23:27:26.420Z",
+      "id": 8
+    },
+    {
+      "category": "Educação",
+      "description": "Curso Node",
+      "price": 500,
+      "type": "outcome",
+      "createdAt": "2023-08-10T23:27:26.420Z",
+      "id": 9
+    },
+    {
+      "category": "Projeto",
+      "description": "Projeto de arquitetura",
+      "price": 1000,
+      "type": "income",
+      "createdAt": "2023-08-11T23:27:26.420Z",
+      "id": 10
+    },
+    {
+      "category": "Projeto",
+      "description": "Projeto de site",
+      "price": 500,
+      "type": "income",
+      "createdAt": "2023-08-12T23:27:26.420Z",
+      "id": 11
     }
   ]
 }
