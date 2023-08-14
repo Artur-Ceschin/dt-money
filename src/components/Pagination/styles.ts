@@ -1,6 +1,11 @@
 import { styled } from 'styled-components'
 
 export const PaginationContainer = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
   width: 100%;
   max-width: 400px;
   margin: 4rem auto 2rem;

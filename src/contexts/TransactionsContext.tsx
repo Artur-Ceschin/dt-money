@@ -21,7 +21,7 @@ interface CreateTransactionInput {
 interface TransactionContextType {
   transactions: Transaction[]
   transactionsData: Transaction[]
-  fetchTransactions: (query?: string) => Promise<void>
+  fetchTransactions: (query?: string, page?: number) => Promise<void>
   createTransaction: (data: CreateTransactionInput) => Promise<void>
   setTransactions: (data: Transaction[]) => void
 }
@@ -35,23 +35,26 @@ export function TransactionsProvider({ children }: TransactionProviderProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([])
   const [transactionsData, setTransactionsData] = useState<Transaction[]>([])
 
-  const fetchTransactions = useCallback(async (query?: string) => {
-    try {
-      const response = await api.get('/transactions', {
-        params: {
-          _sort: 'createdAt',
-          _order: 'desc',
-          _page: 1,
-          _limit: 5,
-          q: query,
-        },
-      })
+  const fetchTransactions = useCallback(
+    async (query?: string, page?: number) => {
+      try {
+        const response = await api.get('/transactions', {
+          params: {
+            _sort: 'createdAt',
+            _order: 'desc',
+            _page: page,
+            _limit: 2,
+            q: query,
+          },
+        })
 
-      setTransactions(response.data)
-    } catch (error) {
-      console.error(error)
-    }
-  }, [])
+        setTransactions(response.data)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    [],
+  )
 
   async function fetchAllTransactions() {
     const response = await api.get(`transactions`, {

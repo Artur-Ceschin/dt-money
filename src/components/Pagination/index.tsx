@@ -2,51 +2,46 @@ import { CaretLeft, CaretRight } from 'phosphor-react'
 import { PaginationButton, PaginationContainer } from './styles'
 import { useContextSelector } from 'use-context-selector'
 import { TransactionsContext } from '../../contexts/TransactionsContext'
-import { useCallback, useEffect, useState } from 'react'
-import { api } from '../../lib/axios'
+import { useEffect, useState } from 'react'
 
-const range = (start: number, end: number) => {
-  return [...Array(end).keys()].map((el) => el + start)
+const siblingsCount = 1
+
+function generatePagesArray(from: number, to: number) {
+  return [...new Array(to - from)]
+    .map((_, index) => from + index + 1)
+    .filter((page) => page > 0)
 }
 
 export function Pagination() {
-  const { setTransactions, transactionsData } = useContextSelector(
+  const { transactionsData, fetchTransactions } = useContextSelector(
     TransactionsContext,
-    (context) => {
-      return {
-        transactionsData: context.transactionsData,
-        setTransactions: context.setTransactions,
-      }
-    },
+    (context) => context,
   )
 
   const [currentPage, setCurrentPage] = useState(1)
 
-  const [transactionsPage, setTransactionsPage] = useState([])
+  const transactionsPageLimit = 2
 
-  const transactionsPageLimit = 3
+  const lastPage = Math.ceil(transactionsData.length / transactionsPageLimit)
 
-  const pages = Math.ceil(transactionsData.length / transactionsPageLimit)
-  const value = range(1, pages)
-  console.log('value', value)
+  const previousPages =
+    currentPage > 1
+      ? generatePagesArray(currentPage - 1 - siblingsCount, currentPage - 1)
+      : []
+  console.log('previousPages', previousPages)
 
-  const fetchTransactionsFromPage = useCallback(async () => {
-    const response = await api.get(`transactions`, {
-      params: {
-        _page: currentPage,
-        _limit: transactionsPageLimit,
-      },
-    })
-
-    setTransactionsPage(response.data)
-    setTransactions(response.data)
-  }, [currentPage, setTransactions])
+  const nextPages =
+    currentPage < lastPage
+      ? generatePagesArray(
+          currentPage,
+          Math.min(currentPage + siblingsCount, lastPage),
+        )
+      : []
+  console.log('nextPages', previousPages)
 
   useEffect(() => {
-    fetchTransactionsFromPage()
-  }, [fetchTransactionsFromPage])
-
-  console.log('transactionsPage', transactionsPage)
+    fetchTransactions('', currentPage)
+  }, [currentPage, fetchTransactions])
 
   return (
     <PaginationContainer>
@@ -54,17 +49,26 @@ export function Pagination() {
         onClick={() => setCurrentPage((state: number) => (state -= 1))}
       />
 
-      {value.map((item: number) => {
-        return (
-          <PaginationButton
-            key={item}
-            onClick={() => setCurrentPage(item)}
-            variant={item === currentPage ? 'active' : 'default'}
-          >
-            {item}
+      {previousPages.length > 0 &&
+        previousPages.map((page) => (
+          <PaginationButton onClick={() => setCurrentPage(page)} key={page}>
+            {page}
           </PaginationButton>
-        )
-      })}
+        ))}
+
+      <PaginationButton
+        variant="active"
+        onClick={() => setCurrentPage(currentPage)}
+      >
+        {currentPage}
+      </PaginationButton>
+
+      {nextPages.length > 0 &&
+        nextPages.map((page) => (
+          <PaginationButton onClick={() => setCurrentPage(page)} key={page}>
+            {page}
+          </PaginationButton>
+        ))}
 
       <CaretRight
         onClick={() => setCurrentPage((state: number) => (state += 1))}

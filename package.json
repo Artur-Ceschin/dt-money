@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "commit": "npx git-cz",
-    "dev:server": "json-server server.json -p 3333 -w -d 500",
+    "dev:server": "json-server server.json -p 3333 -w",
     "lint:fix": "eslint src --ext .ts,.tsx --fix",
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
