@@ -1,11 +1,6 @@
 import { styled } from 'styled-components'
 
 export const PaginationContainer = styled.div`
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-
   width: 100%;
   max-width: 400px;
   margin: 4rem auto 2rem;
@@ -14,10 +9,6 @@ export const PaginationContainer = styled.div`
   justify-content: center;
 
   gap: 1rem;
-
-  svg {
-    cursor: pointer;
-  }
 `
 
 interface ButtonProps {
@@ -46,5 +37,19 @@ export const PaginationButton = styled.button<ButtonProps>`
         ? props.theme['green-300']
         : props.theme['gray-600']};
     transition: 0.2s;
+  }
+`
+
+export const IconButton = styled.button`
+  background-color: transparent;
+  border: none;
+  color: white;
+
+  cursor: pointer;
+  padding: 4px;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
   }
 `
