@@ -13,16 +13,12 @@ function generatePagesArray(from: number, to: number) {
 }
 
 export function Pagination() {
-  const { transactionsData, fetchTransactions } = useContextSelector(
-    TransactionsContext,
-    (context) => context,
-  )
+  const { transactionsData, fetchTransactions, transactionsPerPage } =
+    useContextSelector(TransactionsContext, (context) => context)
 
   const [currentPage, setCurrentPage] = useState(1)
 
-  const transactionsPageLimit = 2
-
-  const lastPage = Math.ceil(transactionsData.length / transactionsPageLimit)
+  const lastPage = Math.ceil(transactionsData.length / transactionsPerPage)
 
   const previousPages =
     currentPage > 1

@@ -21,6 +21,7 @@ interface CreateTransactionInput {
 interface TransactionContextType {
   transactions: Transaction[]
   transactionsData: Transaction[]
+  transactionsPerPage: number
   fetchTransactions: (query?: string, page?: number) => Promise<void>
   createTransaction: (data: CreateTransactionInput) => Promise<void>
   setTransactions: (data: Transaction[]) => void
@@ -35,6 +36,8 @@ export function TransactionsProvider({ children }: TransactionProviderProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([])
   const [transactionsData, setTransactionsData] = useState<Transaction[]>([])
 
+  const transactionsPerPage = 4
+
   const fetchTransactions = useCallback(
     async (query?: string, page?: number) => {
       try {
@@ -43,7 +46,7 @@ export function TransactionsProvider({ children }: TransactionProviderProps) {
             _sort: 'createdAt',
             _order: 'desc',
             _page: page,
-            _limit: 2,
+            _limit: transactionsPerPage,
             q: query,
           },
         })
@@ -98,6 +101,7 @@ export function TransactionsProvider({ children }: TransactionProviderProps) {
         createTransaction,
         transactionsData,
         setTransactions,
+        transactionsPerPage,
       }}
     >
       {children}
