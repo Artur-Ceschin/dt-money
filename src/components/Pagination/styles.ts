@@ -1,9 +1,10 @@
 import { styled } from 'styled-components'
 
-export const PaginationContainer = styled.div`
+export const PaginationContainer = styled.footer`
   width: 100%;
   max-width: 400px;
-  margin: 4rem auto 2rem;
+
+  margin: 2rem auto 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -49,7 +50,7 @@ export const IconButton = styled.button`
   padding: 4px;
 
   &:disabled {
-    cursor: not-allowed;
+    cursor: default;
     opacity: 0.5;
   }
 `

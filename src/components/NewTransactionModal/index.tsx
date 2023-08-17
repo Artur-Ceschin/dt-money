@@ -102,9 +102,11 @@ export function NewTransactionModal() {
             )}
           />
 
-          <button type="submit" disabled={isSubmitting}>
-            Cadastrar
-          </button>
+          <Dialog.Close asChild>
+            <button type="submit" disabled={isSubmitting}>
+              Cadastrar
+            </button>
+          </Dialog.Close>
         </form>
       </Content>
     </Dialog.Portal>

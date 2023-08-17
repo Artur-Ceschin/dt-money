@@ -87,6 +87,54 @@
       "type": "income",
       "createdAt": "2023-08-12T23:27:26.420Z",
       "id": 11
+    },
+    {
+      "category": "Pizzas",
+      "description": "Alimetação",
+      "price": 100,
+      "type": "outcome",
+      "createdAt": "2023-08-16T22:00:55.697Z",
+      "id": 12
+    },
+    {
+      "category": "Setup",
+      "description": "Monitor",
+      "price": 1000,
+      "type": "outcome",
+      "createdAt": "2023-08-16T22:11:39.421Z",
+      "id": 13
+    },
+    {
+      "category": "Trabalho",
+      "description": "Desenvolvimento de app",
+      "price": 400,
+      "type": "income",
+      "createdAt": "2023-08-16T22:12:15.656Z",
+      "id": 14
+    },
+    {
+      "category": "Alimentação",
+      "description": "Mercado",
+      "price": 400,
+      "type": "outcome",
+      "createdAt": "2023-08-16T22:14:23.670Z",
+      "id": 15
+    },
+    {
+      "category": "Trabalho",
+      "description": "Freela",
+      "price": 700,
+      "type": "income",
+      "createdAt": "2023-08-16T22:14:47.601Z",
+      "id": 16
+    },
+    {
+      "category": "Lazer",
+      "description": "Viajem",
+      "price": 400,
+      "type": "outcome",
+      "createdAt": "2023-08-16T22:15:08.791Z",
+      "id": 17
     }
   ]
 }

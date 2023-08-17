@@ -1,32 +1,13 @@
-import { useEffect, useMemo, useState } from 'react'
-import { api } from '../lib/axios'
+import { useMemo } from 'react'
 
-interface Transaction {
-  id: number
-  description: string
-  type: 'income' | 'outcome'
-  price: number
-  category: string
-  createdAt: string
-}
+import { useContextSelector } from 'use-context-selector'
+import { TransactionsContext } from '../contexts/TransactionsContext'
 
 export function useSummary() {
-  const [transactionsData, setTransactionsData] = useState<Transaction[]>([])
-
-  async function fetchAllTransactions() {
-    const response = await api.get(`transactions`, {
-      params: {
-        _sort: 'createdAt',
-        _order: 'desc',
-      },
-    })
-
-    setTransactionsData(response.data)
-  }
-
-  useEffect(() => {
-    fetchAllTransactions()
-  }, [])
+  const { transactionsData } = useContextSelector(
+    TransactionsContext,
+    (context) => context,
+  )
 
   const summary = useMemo(() => {
     return transactionsData.reduce(

@@ -18,11 +18,21 @@ interface CreateTransactionInput {
   type: 'income' | 'outcome'
 }
 
+interface FetchTransactionsProps {
+  query?: string
+  currentPage?: number
+}
+
 interface TransactionContextType {
   transactions: Transaction[]
   transactionsData: Transaction[]
+
   transactionsPerPage: number
-  fetchTransactions: (query?: string, page?: number) => Promise<void>
+
+  fetchTransactions: ({
+    currentPage,
+    query,
+  }: FetchTransactionsProps) => Promise<void>
   createTransaction: (data: CreateTransactionInput) => Promise<void>
   setTransactions: (data: Transaction[]) => void
 }
@@ -32,6 +42,7 @@ export const TransactionsContext = createContext({} as TransactionContextType)
 interface TransactionProviderProps {
   children: ReactNode
 }
+
 export function TransactionsProvider({ children }: TransactionProviderProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([])
   const [transactionsData, setTransactionsData] = useState<Transaction[]>([])
@@ -39,13 +50,13 @@ export function TransactionsProvider({ children }: TransactionProviderProps) {
   const transactionsPerPage = 4
 
   const fetchTransactions = useCallback(
-    async (query?: string, page?: number) => {
+    async ({ currentPage = 1, query = '' }: FetchTransactionsProps) => {
       try {
         const response = await api.get('/transactions', {
           params: {
             _sort: 'createdAt',
             _order: 'desc',
-            _page: page,
+            _page: currentPage,
             _limit: transactionsPerPage,
             q: query,
           },
@@ -58,17 +69,6 @@ export function TransactionsProvider({ children }: TransactionProviderProps) {
     },
     [],
   )
-
-  async function fetchAllTransactions() {
-    const response = await api.get(`transactions`, {
-      params: {
-        _sort: 'createdAt',
-        _order: 'desc',
-      },
-    })
-
-    setTransactionsData(response.data)
-  }
 
   const createTransaction = useCallback(
     async ({ category, description, price, type }: CreateTransactionInput) => {
@@ -85,21 +85,33 @@ export function TransactionsProvider({ children }: TransactionProviderProps) {
     [],
   )
 
-  useEffect(() => {
-    fetchAllTransactions()
-  }, [])
+  async function fetchAllTransactions() {
+    const response = await api.get(`transactions`, {
+      params: {
+        _sort: 'createdAt',
+        _order: 'desc',
+      },
+    })
+
+    setTransactionsData(response.data)
+  }
 
   useEffect(() => {
-    fetchTransactions()
+    fetchAllTransactions()
+  }, [transactionsData])
+
+  useEffect(() => {
+    fetchTransactions({})
   }, [fetchTransactions])
 
   return (
     <TransactionsContext.Provider
       value={{
         transactions,
+        transactionsData,
         fetchTransactions,
         createTransaction,
-        transactionsData,
+
         setTransactions,
         transactionsPerPage,
       }}

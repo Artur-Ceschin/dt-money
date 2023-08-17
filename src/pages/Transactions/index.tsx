@@ -4,6 +4,7 @@ import { Header } from '../../components/Header'
 import { Summary } from '../../components/Summary'
 import { SearchForm } from './components/SearchForm'
 import {
+  PageContainer,
   PriceHighlight,
   TransactionsContainer,
   TransactionsTable,
@@ -19,7 +20,7 @@ export function Transactions() {
   )
 
   return (
-    <div>
+    <PageContainer>
       <Header />
       <Summary />
 
@@ -45,6 +46,6 @@ export function Transactions() {
       </TransactionsContainer>
 
       <Pagination />
-    </div>
+    </PageContainer>
   )
 }
