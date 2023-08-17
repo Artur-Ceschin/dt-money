@@ -4,9 +4,9 @@
 
 
 <h1 align="center">
-    Coffee Delivery💲
+    Dt Money
 </h1>
-<p align="center">Mange your finances </p>
+<p align="center">Mange your finances 💲</p>
 
 ## About this project
 
@@ -21,7 +21,7 @@ Functionalities:
 
 ## Project UI 🎨
 
-- [Figma - Coffee Delivery](https://www.figma.com/file/5yT9ZzZmRQRS4yivGGB3pl/Coffee-Delivery-%E2%80%A2-Desafio-React/duplicate?type=design&node-id=2-12&mode=design)
+- [Figma - Dt Money](https://www.figma.com/community/file/1138814493269096792/DT-Money)
 
 ## Technologies 👩‍💻
 
@@ -53,14 +53,14 @@ $ git clone git@github.com:Artur-Ceschin/dt-money.git
 $ cd dt-money
 
 # Install dependencies
-$ npm i
+$ yarn
 
 # Run the project
-$ npm run dev
+$ yarn dev
 # The server will initialize in the <http://localhost:5173>
 
 # Run JSON Server api mock
-$ npm run:server
+$ yarn dev:server
 # The server will initialize in the <http://localhost:3000>
 
 ```
