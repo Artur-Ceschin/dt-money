@@ -17,7 +17,7 @@ export function Pagination() {
 
   useEffect(() => {
     fetchTransactions({ currentPage })
-  }, [currentPage, fetchTransactions])
+  }, [currentPage])
 
   return (
     <PaginationContainer>
