@@ -1,11 +1,14 @@
 import { styled } from 'styled-components'
 
 export const PaginationContainer = styled.footer`
+  width: 100%;
+
+  margin: 3rem auto;
+
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 16px;
-  margin: 3rem 0;
 `
 
 interface ActivationProps {
