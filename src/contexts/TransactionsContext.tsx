@@ -20,7 +20,10 @@ interface CreateTransactionInput {
 
 interface TransactionContextType {
   transactions: Transaction[]
-  fetchTransactions: (query?: string) => Promise<void>
+  allTransactions: Transaction[]
+  itemsPerPage: number
+
+  fetchTransactions: (query?: string, page?: number) => Promise<void>
   createTransaction: (data: CreateTransactionInput) => Promise<void>
 }
 
@@ -31,18 +34,41 @@ interface TransactionProviderProps {
 }
 export function TransactionsProvider({ children }: TransactionProviderProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([])
+  const [allTransactions, setAllTransactions] = useState<Transaction[]>([])
 
-  const fetchTransactions = useCallback(async (query?: string) => {
+  const itemsPerPage = 4
+
+  const fetchTransactions = useCallback(
+    async (query?: string, page?: number) => {
+      try {
+        const response = await api.get('/transactions', {
+          params: {
+            _sort: 'createdAt',
+            _order: 'desc',
+            _page: page,
+            _limit: itemsPerPage,
+            q: query,
+          },
+        })
+
+        setTransactions(response.data)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    [],
+  )
+
+  const fetchAllTransactions = useCallback(async () => {
     try {
       const response = await api.get('/transactions', {
         params: {
           _sort: 'createdAt',
           _order: 'desc',
-          q: query,
         },
       })
 
-      setTransactions(response.data)
+      setAllTransactions(response.data)
     } catch (error) {
       console.error(error)
     }
@@ -67,9 +93,19 @@ export function TransactionsProvider({ children }: TransactionProviderProps) {
     fetchTransactions()
   }, [fetchTransactions])
 
+  useEffect(() => {
+    fetchAllTransactions()
+  }, [fetchAllTransactions])
+
   return (
     <TransactionsContext.Provider
-      value={{ transactions, fetchTransactions, createTransaction }}
+      value={{
+        transactions,
+        fetchTransactions,
+        createTransaction,
+        allTransactions,
+        itemsPerPage,
+      }}
     >
       {children}
     </TransactionsContext.Provider>

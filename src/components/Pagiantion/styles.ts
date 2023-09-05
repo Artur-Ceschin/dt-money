@@ -12,7 +12,9 @@ interface ActivationProps {
   active?: boolean
 }
 
-export const IconStyles = styled.div<ActivationProps>`
+export const IconStyles = styled.button<ActivationProps>`
+  background-color: transparent;
+  border: none;
   svg {
     cursor: pointer;
     color: ${(props) => props.theme['gray-600']};

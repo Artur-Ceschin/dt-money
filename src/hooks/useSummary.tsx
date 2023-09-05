@@ -5,7 +5,7 @@ import { useMemo } from 'react'
 export function useSummary() {
   const transactions = useContextSelector(
     TransactionsContext,
-    (context) => context.transactions,
+    (context) => context.allTransactions,
   )
 
   const summary = useMemo(() => {
