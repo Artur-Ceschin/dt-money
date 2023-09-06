@@ -23,7 +23,7 @@ export function Pagination() {
   }, [currentPage, totalPages])
 
   async function handleSearchTransactions(page: number) {
-    await fetchTransactions('', page)
+    await fetchTransactions({ page })
   }
 
   useEffect(() => {

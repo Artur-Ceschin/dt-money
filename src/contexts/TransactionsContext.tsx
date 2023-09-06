@@ -18,12 +18,17 @@ interface CreateTransactionInput {
   type: 'income' | 'outcome'
 }
 
+interface FetchTransactionProps {
+  query?: string
+  page?: number
+}
+
 interface TransactionContextType {
   transactions: Transaction[]
   allTransactions: Transaction[]
   itemsPerPage: number
 
-  fetchTransactions: (query?: string, page?: number) => Promise<void>
+  fetchTransactions: ({ page, query }: FetchTransactionProps) => Promise<void>
   createTransaction: (data: CreateTransactionInput) => Promise<void>
 }
 
@@ -39,7 +44,7 @@ export function TransactionsProvider({ children }: TransactionProviderProps) {
   const itemsPerPage = 4
 
   const fetchTransactions = useCallback(
-    async (query?: string, page?: number) => {
+    async ({ query = '', page = 1 }: FetchTransactionProps) => {
       try {
         const response = await api.get('/transactions', {
           params: {
@@ -90,7 +95,7 @@ export function TransactionsProvider({ children }: TransactionProviderProps) {
   )
 
   useEffect(() => {
-    fetchTransactions()
+    fetchTransactions({})
   }, [fetchTransactions])
 
   useEffect(() => {
