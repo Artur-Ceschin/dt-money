@@ -43,7 +43,7 @@ export function Pagination() {
         <CaretLeft size={24} />
       </IconStyles>
 
-      <div className="pages">
+      <div>
         {visiblePageNumbers.map((page) => (
           <PageButtonStyles
             onClick={() => setCurrentPage(page)}
