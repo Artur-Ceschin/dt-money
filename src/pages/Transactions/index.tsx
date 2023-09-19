@@ -4,12 +4,14 @@ import { Header } from '../../components/Header'
 import { Summary } from '../../components/Summary'
 import { SearchForm } from './components/SearchForm'
 import {
+  PageContainer,
   PriceHighlight,
   TransactionsContainer,
   TransactionsTable,
 } from './styles'
 import { TransactionsContext } from '../../contexts/TransactionsContext'
 import { dateFormatter, priceFormatter } from '../../utils/formatter'
+import { Pagination } from '../../components/Pagination'
 
 export function Transactions() {
   const transactions = useContextSelector(
@@ -18,7 +20,7 @@ export function Transactions() {
   )
 
   return (
-    <div>
+    <PageContainer>
       <Header />
       <Summary />
 
@@ -42,6 +44,8 @@ export function Transactions() {
           </tbody>
         </TransactionsTable>
       </TransactionsContainer>
-    </div>
+
+      <Pagination />
+    </PageContainer>
   )
 }

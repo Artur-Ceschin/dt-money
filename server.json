@@ -47,6 +47,70 @@
       "type": "outcome",
       "createdAt": "2023-08-09T23:27:26.420Z",
       "id": 6
+    },
+    {
+      "category": "Alimentação",
+      "description": "Mercado",
+      "price": 200,
+      "type": "outcome",
+      "createdAt": "2023-08-09T23:27:26.420Z",
+      "id": 7
+    },
+    {
+      "category": "Trabalho",
+      "description": "Salário",
+      "price": 3000,
+      "type": "income",
+      "createdAt": "2023-10-09T23:27:26.420Z",
+      "id": 8
+    },
+    {
+      "category": "Trabalho",
+      "description": "Freelance",
+      "price": 1000,
+      "type": "income",
+      "createdAt": "2023-10-09T23:27:26.420Z",
+      "id": 9
+    },
+    {
+      "category": "Passeio",
+      "description": "Parque",
+      "price": 10,
+      "type": "outcome",
+      "createdAt": "2023-10-09T23:27:26.420Z",
+      "id": 10
+    },
+    {
+      "category": "Alimentação",
+      "description": "Mercado",
+      "price": 500,
+      "type": "outcome",
+      "createdAt": "2023-11-09T23:27:26.420Z",
+      "id": 11
+    },
+    {
+      "category": "Manutenção",
+      "description": "Carro na oficina",
+      "price": 1000,
+      "type": "outcome",
+      "createdAt": "2023-12-09T23:27:26.420Z",
+      "id": 12
+    },
+    {
+      "category": "Freelance",
+      "description": "Aplicativo com React Native",
+      "price": 2500,
+      "type": "income",
+      "createdAt": "2023-12-09T23:27:26.420Z",
+      "id": 13
+    },
+    {
+      "category": "Lazer",
+      "description": "Academia",
+      "price": 150,
+      "type": "outcome",
+      "createdAt": "2023-05-09T23:27:26.420Z",
+      "id": 14
     }
   ]
 }

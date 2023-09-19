@@ -18,9 +18,20 @@ interface CreateTransactionInput {
   type: 'income' | 'outcome'
 }
 
+interface FetchAllTransactionsProps {
+  query?: string
+  page?: number
+}
+
 interface TransactionContextType {
   transactions: Transaction[]
-  fetchTransactions: (query?: string) => Promise<void>
+  allTransactions: Transaction[]
+  limitPerPage: number
+
+  fetchTransactions: ({
+    page,
+    query,
+  }: FetchAllTransactionsProps) => Promise<void>
   createTransaction: (data: CreateTransactionInput) => Promise<void>
 }
 
@@ -29,20 +40,44 @@ export const TransactionsContext = createContext({} as TransactionContextType)
 interface TransactionProviderProps {
   children: ReactNode
 }
+
+const limitPerPage = 4
 export function TransactionsProvider({ children }: TransactionProviderProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([])
 
-  const fetchTransactions = useCallback(async (query?: string) => {
+  const [allTransactions, setAllTransactions] = useState<Transaction[]>([])
+
+  const fetchTransactions = useCallback(
+    async ({ page = 1, query = '' }: FetchAllTransactionsProps) => {
+      try {
+        const response = await api.get('/transactions', {
+          params: {
+            _sort: 'createdAt',
+            _order: 'desc',
+            q: query,
+            _page: page,
+            _limit: limitPerPage,
+          },
+        })
+
+        setTransactions(response.data)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    [],
+  )
+
+  const fetchAllTransactions = useCallback(async () => {
     try {
       const response = await api.get('/transactions', {
         params: {
           _sort: 'createdAt',
           _order: 'desc',
-          q: query,
         },
       })
 
-      setTransactions(response.data)
+      setAllTransactions(response.data)
     } catch (error) {
       console.error(error)
     }
@@ -64,12 +99,22 @@ export function TransactionsProvider({ children }: TransactionProviderProps) {
   )
 
   useEffect(() => {
-    fetchTransactions()
+    fetchTransactions({})
   }, [fetchTransactions])
+
+  useEffect(() => {
+    fetchAllTransactions()
+  }, [fetchAllTransactions])
 
   return (
     <TransactionsContext.Provider
-      value={{ transactions, fetchTransactions, createTransaction }}
+      value={{
+        transactions,
+        fetchTransactions,
+        createTransaction,
+        allTransactions,
+        limitPerPage,
+      }}
     >
       {children}
     </TransactionsContext.Provider>
